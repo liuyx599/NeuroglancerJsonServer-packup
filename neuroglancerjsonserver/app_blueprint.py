@@ -1,3 +1,4 @@
+# g 是一个特殊的全局对象，被称为 "Application Context Globals"（应用程序上下文全局对象）
 from flask import Blueprint, request, make_response, jsonify, g
 from flask import current_app
 import json
@@ -14,14 +15,15 @@ __version__ = "0.2.12"
 # -------------------------------
 
 
+# 访问 http://localhost:5000/nglstate/  页面显示  NeuroglancerJsonServer - version 0.2.12
 @bp.route('/', methods=["GET"])
 @bp.route("/index", methods=["GET"])
 def index():
-    return "NeuroglancerJsonServer - version " + __version__
-
+    return "NeuroglancerJsonServer - version " + __version__   # html的内容，这里应该也可以用html什么的修饰
 
 @bp.route
 def home():
+    # 创建响应头
     resp = make_response()
     resp.headers['Access-Control-Allow-Origin'] = '*'
     acah = "Origin, X-Requested-With, Content-Type, Accept"
@@ -30,11 +32,14 @@ def home():
     resp.headers["Connection"] = "keep-alive"
     return resp
 
-
 # -------------------------------
 # ------ Measurements and Logging
 # -------------------------------
+# Flask中间件
+# NEW REQUEST: 2023-10-22 22:07:58.819981 http://localhost:5000/nglstate/
+# Response time: 0.998ms
 
+# bp是Blueprint（蓝图）的缩写。蓝图是一种组织和管理路由、视图函数和静态文件等的方式
 @bp.before_request
 def before_request():
     print("NEW REQUEST:", datetime.datetime.now(), request.url)
@@ -87,22 +92,22 @@ def unhandled_exception(e):
 
 def get_db():
     if 'db' not in g:
-        g.db = database.JsonDataBase()
+        g.db = database.JsonDataBaseMySQL()    # 将google cloud 改为本地Mysql
     return g.db
 
 
 @bp.route('/<json_id>', methods=['GET'])
-@auth_required
+# @auth_required   #不需要认证
 def get_json(json_id):
     db = get_db()
 
     json_data = db.get_json(int(json_id), decompress=True)
 
-    return jsonify(json.loads(json_data))
+    return jsonify(json.loads(json_data))   # loads会将str类型转为dict
 
 
 @bp.route('/raw/<json_id>', methods=['GET'])
-@auth_required
+# @auth_required  #不需要认证
 def get_raw_json(json_id):
     db = get_db()
 
@@ -112,7 +117,7 @@ def get_raw_json(json_id):
 
 
 @bp.route('/post', methods=['POST', 'GET'])
-@auth_required
+# @auth_required
 def add_json():
     db = get_db()
 
