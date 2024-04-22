@@ -1,0 +1,7 @@
+可以是SQLite 也可以是MySQL 取决于要不要部署，SQLite适合离线个人操作
+
+auto-py-to-exe
+
+打包完毕后，记得将_interal下的jsonserve.db复制到跟run.exe同一个目录中
+
+

@@ -72,6 +72,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="root@202.38.69.242:40019 key">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="root@202.38.69.242:40022 key">
         <serverdata>
           <mappings>
@@ -87,6 +94,13 @@
         </serverdata>
       </paths>
       <paths name="root@202.38.69.242:40031 key">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@202.38.69.242:40031 key (1)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -114,7 +128,21 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="root@202.38.69.242:40053 key">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="root@202.38.69.242:40056 key">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@202.38.69.242:40060 key (1)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -129,6 +157,13 @@
         </serverdata>
       </paths>
       <paths name="root@202.38.69.242:40063">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@202.38.69.242:40066 key">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

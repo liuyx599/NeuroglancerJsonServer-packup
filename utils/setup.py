@@ -19,11 +19,11 @@ def find_version(*file_paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
-with open('requirements.txt', 'r') as f:
+with open('../requirements.txt', 'r') as f:
     required = f.read().splitlines()
 
 setup(
-    version=find_version("neuroglancerjsonserver", "__init__.py"),
+    version=find_version("neuroglancerjsonserver", "init_app.py"),
     name='neuroglancerjsonserver',
     description='a service for storing JSON blobs in a database',
     author='Sven Dorkenwald',

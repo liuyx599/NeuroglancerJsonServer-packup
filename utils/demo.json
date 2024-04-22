@@ -1,7 +1,7 @@
 {
   "layers": [
     {
-      "source": "precomputed://http://192.168.2.232:2333/cremi/unet3d_zwater/sampleA/sampleA-nodecnn-0315/",
+      "source": "precomputed://http://111.111.1.1:1111/cremi/sampleA/",
       "type": "segmentation",
       "segments": [
         "301"

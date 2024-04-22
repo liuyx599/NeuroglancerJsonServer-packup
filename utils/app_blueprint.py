@@ -1,12 +1,12 @@
 # g 是一个特殊的全局对象，被称为 "Application Context Globals"（应用程序上下文全局对象）
 from flask import Blueprint, request, make_response, jsonify, g
 from flask import current_app
+from flask import  abort
 import json
 import time
 import datetime
-from middle_auth_client import auth_required
 
-from neuroglancerjsonserver import database
+from . import database
 
 bp = Blueprint('neuroglancerjsonserver', __name__, url_prefix="/nglstate")
 __version__ = "0.2.12"
@@ -73,6 +73,8 @@ def internal_server_error(error):
     return 500
 
 
+
+
 @bp.errorhandler(Exception)
 def unhandled_exception(e):
     dt = (time.time() - g.request_start_time) * 1000
@@ -89,21 +91,39 @@ def unhandled_exception(e):
 # ------ Applications
 # -------------------
 
-
+# 设置数据库
+# 如果是SQLite 请将neuroglancerjsonserve/jsonserve.db复制到当前目录下
 def get_db():
     if 'db' not in g:
-        g.db = database.JsonDataBaseMySQL()    # 将google cloud 改为本地Mysql
+        # g.db = database.JsonDataBaseMySQL()
+        g.db = database.JsonDataBaseSQLite()
     return g.db
 
 
+
+@bp.errorhandler(404)
+def not_found_error(error):
+    dt = (time.time() - g.request_start_time) * 1000
+
+    url_split = request.url.split("/")
+    current_app.logger.error("%s - %s - %s - %s - %f.3" %
+                             (request.path.split("/")[-1],
+                              "Server Error: " + str(error),
+                              "".join([url_split[-2], "/", url_split[-1]]),
+                              str(request.data), dt))
+    return jsonify(message="Not Found"), 404
+
+
 @bp.route('/<json_id>', methods=['GET'])
-# @auth_required   #不需要认证
 def get_json(json_id):
     db = get_db()
 
     json_data = db.get_json(int(json_id), decompress=True)
 
-    return jsonify(json.loads(json_data))   # loads会将str类型转为dict
+    if json_data is None:
+        abort(404)  # 触发 404 错误
+    else:
+        return jsonify(json.loads(json_data))
 
 
 @bp.route('/raw/<json_id>', methods=['GET'])
