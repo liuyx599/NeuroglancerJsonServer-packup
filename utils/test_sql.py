@@ -35,6 +35,7 @@ class JsonDataBaseMySQLTest(unittest.TestCase):
         self.assertEqual(json_data, json.loads(retrieved_json_data))
 
 # 用SQLite的话 可以连同本地文件一起打包了
+# If you use SQLite, you can package it with local files #
 class JsonDataBaseSQLiteT(unittest.TestCase):
     def setUp(self):
         self.db = JsonDataBaseSQLite()

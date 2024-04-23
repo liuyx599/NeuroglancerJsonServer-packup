@@ -1,7 +1,8 @@
-可以是SQLite 也可以是MySQL 取决于要不要部署，SQLite适合离线个人操作
+后端服务器可以是SQLite 也可以是MySQL 取决于要不要部署，SQLite适合离线个人操作
+如果是SQLite，打包完毕后，记得将_interal下的jsonserve.db复制到跟run.exe同一个目录中
 
-auto-py-to-exe
+The backend server can be either SQLite or MySQL depending on whether you want to deploy it or not, SQLite is good for offline personal operation.
+If SQLite, after packaging, remember to copy jsonserve.db under _interal to the same directory as run.exe.
 
-打包完毕后，记得将_interal下的jsonserve.db复制到跟run.exe同一个目录中
 
 

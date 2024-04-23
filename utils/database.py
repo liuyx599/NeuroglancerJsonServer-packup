@@ -4,7 +4,7 @@ import zlib
 import mysql.connector
 import pytz
 from . import migration
-import sqlite3  # 新增sqlite
+import sqlite3
 HOME = os.path.expanduser('~')
 
 
@@ -50,6 +50,7 @@ class JsonDataBaseSQLite(object):
         cursor = self.connection.cursor()
 
         # SQLite不支持%s占位符号  应该用?
+        # SQLite doesn't support the %s placeholder symbol, it should use ?
         # cursor.execute(
         #     "SELECT json_column FROM {} WHERE id = %s".format(self.tablename),
         #     (json_id,)
@@ -62,10 +63,10 @@ class JsonDataBaseSQLite(object):
 
         row = cursor.fetchone()
 
-        if row:    # 检查变量 row 是否存在数据。如果存在，表示找到了具有指定 ID 的 JSON 数据。
+        if row:
             json_data = row[0]  # byte
 
-            if decompress:  # 先解压
+            if decompress:
                 json_data = zlib.decompress(json_data)
 
             # bytes -> str
@@ -89,6 +90,7 @@ class JsonDataBaseSQLite(object):
 
 class JsonDataBaseMySQL(object):
     # 注意，数据库事先已经创建好
+    # Note that the database has been created beforehand
     def __init__(self, host='localhost', user='root', password='root', database='neuroglancerjsondb', tablename='jsons'):
         self._connection = mysql.connector.connect(
             host=host,
